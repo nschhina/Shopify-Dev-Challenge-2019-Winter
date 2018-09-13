@@ -5,16 +5,29 @@ from django.db import models
 
 # Create your models here.
 
-# Model for Shopping Cart
-class ShoppingList(models.Model):
-    # Product ID
-    pid = models.CharField(max_length=255, null=False)
+# Model for Shops
+class ShopA(models.Model):
     # Product Name
     pname = models.CharField(max_length=255, null=False)
     # Quantity
     qty = models.IntegerField(default=0)
     # Price of Item in Dollars
-    price = models.IntegerField(default=0)
+    rate = models.IntegerField(default=0)
+    # Total Price of Item in Dollars
+    price = {% widthratio A 1 B %}
+    def __str__(self):
+        return "{} - {} - {} - {}".format(self.pname, self.qty, self.rate, self.price)
+
+class ShopB(models.Model):
+    # Product Name
+    pname = models.CharField(max_length=255, null=False)
+    # Quantity
+    qty = models.IntegerField(default=0)
+    # Price of Item in Dollars
+    rate = models.IntegerField(default=0)
+    # Total Price of Item in Dollars
+    def getPrice(qty,rate):
+        return qty*rate
 
     def __str__(self):
-        return "{} - {} - {} - {}".format(self.pid, self.pname, self.qty, self.price)
+        return "{} - {} - {} - {}".format(self.pname, self.qty, self.rate, self.getPrice(self.rate,self.qty))

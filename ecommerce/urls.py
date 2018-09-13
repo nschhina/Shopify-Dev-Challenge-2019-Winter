@@ -1,8 +1,9 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from .views import ListShoppingCartView
+from .views import ListShoppingCartAView,ListShoppingCartBView
 
 urlpatterns = [
-    path('cart/', ListShoppingCartView.as_view(), name="cartview")
+    path('shopA/', ListShoppingCartAView.as_view(), name= "shopAcart"),
+    path('shopB/', ListShoppingCartBView.as_view(), name= "shopBcart")
 ]

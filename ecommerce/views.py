@@ -4,13 +4,18 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import generics
-from .models import ShoppingList
-from .serializers import ShoppingListSerializer
+from .models import ShopA,ShopB
+from .serializers import ShoppingListSerializerA,ShoppingListSerializerB
 
 # Create your views here
 
 
-class ListShoppingCartView(generics.ListAPIView):
+class ListShoppingCartAView(generics.ListAPIView):
 
-    queryset = ShoppingList.objects.all()
-    serializer_class = ShoppingListSerializer
+    queryset = ShopA.objects.all()
+    serializer_class = ShoppingListSerializerA
+
+class ListShoppingCartBView(generics.ListAPIView):
+
+    queryset = ShopB.objects.all()
+    serializer_class = ShoppingListSerializerB
