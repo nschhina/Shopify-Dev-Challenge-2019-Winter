@@ -2,8 +2,8 @@
 
 from django.contrib import admin
 from django.urls import path, include
+from .views import ListOrderView
 
 urlpatterns = [
-    path('products/', include('product.urls')),
-    #path('order/', include('order.urls')),
+    path('', ListOrderView.as_view(), name= "orderview"),
 ]
