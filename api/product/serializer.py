@@ -5,4 +5,4 @@ from .models import Shop
 class ShoppingListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
-        fields = ("pname","qty","rate")
+        fields = ("product_name","product_price")
