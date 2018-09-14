@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from .models import Shop
+from .models import Product
 
 
-class ShoppingListSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Shop
+        model = Product
         fields = ("product_name","product_price")
