@@ -1,12 +1,8 @@
 from rest_framework import serializers
-from .models import ShopA,ShopB
+from .models import Shop
 
 
-class ShoppingListSerializerA(serializers.ModelSerializer):
+class ShoppingListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ShopA
-        fields = ("pname","qty","rate")
-class ShoppingListSerializerB(serializers.ModelSerializer):
-    class Meta:
-        model = ShopA
+        model = Shop
         fields = ("pname","qty","rate")
