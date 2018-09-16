@@ -22,15 +22,17 @@ class OrderList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class OrderDetail(APIView):
-    def get_object(self, order_name):
+
+    def get_object(self, order):
         try:
-            return Order.objects.get(order_name=order_name)
+            return Order.objects.get(order=order)
         except Order.DoesNotExist:
             raise Http404
 
     def get(self, request, order_name):
-        snippet = self.get_object(order_name)
+        snippet = LineItem.objects.filter(order_name=order_name)
         serializer = OrderSerializer(snippet)
         return Response(serializer.data)
 
