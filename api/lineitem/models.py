@@ -7,6 +7,10 @@ from order.models import Order
 class LineItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField(default = 0)
+    def product_total(self):
+        return self.quantity * self.product.product_price
+    total = property(product_total)
 
     class Meta:
         unique_together= ('order','product')

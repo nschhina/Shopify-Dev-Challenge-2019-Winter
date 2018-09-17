@@ -5,4 +5,4 @@ from product.serializers import ProductSerializer
 class LineItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = LineItem
-        fields = ('id', 'product')
+        fields = ('id', 'product', 'quantity', 'product_total')
