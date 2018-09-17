@@ -7,10 +7,12 @@ RUN mkdir /shopify
 
 COPY requirements.txt /shopify
 
-WORKDIR /shopify
-
 ADD api /shopify/
+
+WORKDIR /shopify
 
 RUN pip install -r requirements.txt
 
-RUN python manage.py runserver
+EXPOSE 8000
+
+CMD python /shopify/manage.py runserver 0.0.0.0:8000
