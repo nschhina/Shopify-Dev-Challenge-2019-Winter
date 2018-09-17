@@ -15,6 +15,6 @@ class LineItem(models.Model):
 
     def get_object(order_name):
         try:
-            return LineItem.objects.filter(order_name=order_name)
+            return Order.objects.get(order_name=order_name).lineall()
         except Order.DoesNotExist:
             raise Http404

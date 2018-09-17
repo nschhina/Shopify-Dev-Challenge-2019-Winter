@@ -9,7 +9,11 @@ from rest_framework import status
 from .models import Order
 from lineitem.models import LineItem
 from .serializers import OrderSerializer
+from lineitem.serializers import LineItemSerializer
 from rest_framework.views import APIView
+from django.views.decorators.cache import never_cache
+from rest_framework.exceptions import NotFound
+from rest_framework.generics import RetrieveAPIView
 
 class OrderList(APIView):
     def get(self,request):
@@ -24,18 +28,24 @@ class OrderList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OrderDetail(APIView):
-
-    def get_object(self, order):
-        try:
-            return Order.objects.get(order_name=order_name)
-        except Order.DoesNotExist:
-            raise Http404
+    # your code
 
     def get(self, request, order_name):
         snippet = Order.objects.get(order_name=order_name)
-        snippet=snippet.lineitem_set.all()
         serializer = OrderSerializer(snippet)
         return Response(serializer.data)
+
+# class OrderDetail(RetrieveAPIView):
+#     serializer_class = OrderSerializer
+#     def get_object(self):
+#         try:
+#             return Order.objects.get(order_name=self.kwargs.get('order_name'))
+#         except Order.DoesNotExist:
+#             raise NotFound()
+#     def get(self, request, order_name):
+#         snippet = LineItem.get_object(order_name)
+#         serializer = LineItemSerializer(snippet)
+#         return Response(serializer.data)
 
     # def put(self, request, order_name):
     #     snippet = self.get_object(order_name)
