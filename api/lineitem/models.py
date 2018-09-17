@@ -15,7 +15,7 @@ class LineItem(models.Model):
     class Meta:
         unique_together= ('order','product')
     def __str__(self):
-        return '{} - {}'.format(self.order.order_name,self.product.product_name)
+        return '{} - {} - {} - {}'.format(self.order.order_name,self.product.product_name, self.quantity , self.total)
 
     def get_object(order_name):
         try:

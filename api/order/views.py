@@ -35,18 +35,6 @@ class OrderDetail(APIView):
         serializer = OrderSerializer(snippet)
         return Response(serializer.data)
 
-# class OrderDetail(RetrieveAPIView):
-#     serializer_class = OrderSerializer
-#     def get_object(self):
-#         try:
-#             return Order.objects.get(order_name=self.kwargs.get('order_name'))
-#         except Order.DoesNotExist:
-#             raise NotFound()
-#     def get(self, request, order_name):
-#         snippet = LineItem.get_object(order_name)
-#         serializer = LineItemSerializer(snippet)
-#         return Response(serializer.data)
-
     # def put(self, request, order_name):
     #     snippet = self.get_object(order_name)
     #     serializer = OrderSerializer(snippet, data=request.data, partial = True)

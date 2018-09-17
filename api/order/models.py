@@ -10,4 +10,4 @@ class Order(models.Model):
     cart_total = property(get_order_total)
     # def __str__(self):
     def __str__(self):
-        return '{0}'.format(self.order_name)
+        return '{} - {}'.format(self.order_name,self.cart_total)
