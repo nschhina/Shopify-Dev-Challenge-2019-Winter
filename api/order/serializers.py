@@ -7,4 +7,4 @@ class OrderSerializer(serializers.ModelSerializer):
     line_items = LineItemSerializer(many=True, source='lineitem_set')
     class Meta:
         model = Order
-        fields = ['order_name', 'line_items']
+        fields = ['order_name', 'line_items', 'cart_total']
