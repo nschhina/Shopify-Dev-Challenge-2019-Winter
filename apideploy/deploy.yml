@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: shopify
+  namespace: shopifyapp
+  labels:
+    purpose: shopifyapi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysqlserver
+    spec:
+      containers:
+      - name: apiapp
+        image: shopify:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MYSQL_USER
+          value: root
+        - name: MYSQL_PASSWORD
+          value: shopify
+        - name: MYSQL_HOST
+          value: mysql
+        - name: MYSQL_PORT
+          value: "3306"
