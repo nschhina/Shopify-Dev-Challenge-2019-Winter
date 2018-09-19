@@ -28,22 +28,21 @@ class OrderList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OrderDetail(APIView):
-    # your code
 
     def get(self, request, order_name):
         snippet = Order.objects.get(order_name=order_name)
         serializer = OrderSerializer(snippet)
         return Response(serializer.data)
 
-    # def put(self, request, order_name):
-    #     snippet = self.get_object(order_name)
-    #     serializer = OrderSerializer(snippet, data=request.data, partial = True)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #
-    # def delete(self, request, order_name):
-    #     snippet = self.get_object(order_name)
-    #     snippet.delete()
-    #     return Response(status=status.HTTP_204_NO_CONTENT)
+    def put(self, request, order_name):
+        snippet = Order.objects.get(order_name=order_name)
+        serializer = OrderSerializer(snippet, data=request.data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, order_name):
+        snippet = self.get_object(order_name)
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
