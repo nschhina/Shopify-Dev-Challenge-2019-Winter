@@ -14,8 +14,15 @@ from rest_framework.views import APIView
 from django.views.decorators.cache import never_cache
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import RetrieveAPIView
+from django.http import HttpResponse, Http404
+import json
 
 class OrderList(APIView):
+    def get_object(self, order_name):
+        try:
+            return Order.objects.get(order_name=order_name)
+        except Order.DoesNotExist:
+            raise Http404
     def get(self,request):
         orderlist = Order.objects.all()
         serializer = OrderSerializer(orderlist,many = True)
@@ -27,8 +34,19 @@ class OrderList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class OrderDetail(APIView):
+    def delete(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        order_name = body['order_name']
+        snippet = self.get_object(order_name)
+        snippet.delete()
 
+class OrderDetail(APIView):
+    def get_object(self, order_name):
+        try:
+            return Order.objects.get(order_name=order_name)
+        except Order.DoesNotExist:
+            raise Http404
     def get(self, request, order_name):
         snippet = Order.objects.get(order_name=order_name)
         serializer = OrderSerializer(snippet)
@@ -41,8 +59,3 @@ class OrderDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, order_name):
-        snippet = self.get_object(order_name)
-        snippet.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
