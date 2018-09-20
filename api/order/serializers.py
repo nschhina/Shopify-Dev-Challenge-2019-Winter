@@ -17,26 +17,8 @@ class OrderSerializer(serializers.ModelSerializer):
             return Response(status=HTTP_202_ACCEPTED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    # def create(self, validated_data):
-    #     list = LineItem.objects.create(**validated_data)
-    #     return list
     def update(self, instance, validated_data):
         instance.order_name = validated_data.get("order_name")
-        #listitems = instance.items.product.get(product_name = validated_data.get("product_name"))
-        # items = instance.items.return_set(validated_data.get("product_name"))
-
-        # items = instance.objects.items.all().select_related('product').select_related('product_name')
-        # items = items.product_name
-        # instance.save()
-        #a = items.get('product_name'= validated_data.get("product_name")
-
-        #asper= key.get(product_name=validated_data.get("product_name"))
-
-        # items.product.get(produc_name=validated_data.get("product_name")
-        # for prod in items.product.all():
-        #     if prod.product_name==validated_data.get("product_name"):
-        #         prod.quantity = validated_data.get("quantity")
-        #         prod.save()
         return instance
     def delete(self, instance, validated_data):
         for order in instance.order_name:

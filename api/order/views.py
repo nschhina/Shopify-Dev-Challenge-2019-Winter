@@ -34,27 +34,6 @@ class OrderList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    # def put(self, request):
-    #     body_unicode = request.body.decode('utf-8')
-    #     body = json.loads(body_unicode)
-    #     order_name = body['order_name']
-    #     snippet = self.get_object(order_name=order_name)
-    #     serializer = OrderSerializer(snippet, data=request.data, partial = True)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #
-    # def delete(self, request):
-    #     body_unicode = request.body.decode('utf-8')
-    #     body = json.loads(body_unicode)
-    #     order_name = body['order_name']
-    #     snippet = self.get_object(order_name)
-    #     serializer = OrderSerializer(self, snippet, data=request.data)
-    #     serializer.delete()
-    #     return Response(serializer.data)
-
-
 class OrderDetail(APIView):
     def get_object(self, order_name):
         try:
@@ -64,6 +43,12 @@ class OrderDetail(APIView):
     def get(self, request, order_name):
         snippet = Order.objects.get(order_name=order_name)
         serializer = OrderSerializer(snippet)
+        return Response(serializer.data)
+    def put(self, request, order_name):
+        snippet = self.get_object(order_name=order_name)
+        serializer = OrderSerializer(snippet,data=request.data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
         return Response(serializer.data)
     def delete(self, request, order_name):
         snippet = Order.objects.get(order_name=order_name)
