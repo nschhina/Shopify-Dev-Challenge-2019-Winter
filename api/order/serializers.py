@@ -21,6 +21,7 @@ class OrderSerializer(serializers.ModelSerializer):
     #     list = LineItem.objects.create(**validated_data)
     #     return list
     def update(self, instance, validated_data):
+        instance.order_name = validated_data.get("order_name")
         #listitems = instance.items.product.get(product_name = validated_data.get("product_name"))
         # items = instance.items.return_set(validated_data.get("product_name"))
 
@@ -37,3 +38,9 @@ class OrderSerializer(serializers.ModelSerializer):
         #         prod.quantity = validated_data.get("quantity")
         #         prod.save()
         return instance
+    def delete(self, instance, validated_data):
+        for order in instance.order_name:
+            if order == validated_data.get("order_name"):
+                snippet = Order.objects.get(order_name=order_name)
+                snippet.delete()
+                return

@@ -61,6 +61,19 @@ To insert a new product in our shop, we'll be using Post request at   /api/shop/
 
 ``curl --header "Content-Type: application/json" --request POST -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' --data '{"product_name":"ProdD", "product_price" :"45.54"}' http://localhost:8000/api/shop/products/``
 
+### PUT request
+Majorly used to modify the price of current item, this will not create a new object! Make sure you include product_name and product_price in your request
+/api/shop/products/
+
+``curl --header "Content-Type: application/json" --request PUT -H 'Authorization:Token 028ad8511a505992e3053df18724fa95b55e4' --data '{"product_name": "ProdB","product_price": "58.95"}' http://localhost:8000/api/shop/products/``
+
+### DELETE request
+Feel like you don't like product in the shop? JUST DELETE IT! :P Make sure you include product_name in your request  
+/api/shop/products/
+
+``curl --header "Content-Type: application/json" --request DELETE -H 'Authorization:Token 028ad8511a505992e3053df18724fa95b55e4' --data '{"product_name": "ProdB"}' http://localhost:8000/api/shop/products/``
+
+
 Make sure you include both product_name and product_price fields in your POST request. By design you can't change product_price of an existing product. This will be handled in PUT request
 
 ## Orders - List View
@@ -75,8 +88,7 @@ For information about current orders in store, we make a get request at, you can
 To start a new order, we will make a POST request with order_name field in the list view.    
 /api/shop/orders/  
 
-``curl --header "Content-Type: application/json" --request POST -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' --data '{"order_name":"[order_name]"}' http://localhost:8000/api/shop/orders/
-``
+``curl --header "Content-Type: application/json" --request POST -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' --data '{"order_name":"[order_name]"}' http://localhost:8000/api/shop/orders/``
 
 ## Order - Detailed View
 
@@ -87,10 +99,15 @@ NOTE: I did not create slug field or methods, so your Request object must be cas
 
 ``curl --header "Content-Type: application/json" --request GET -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' http://localhost:8000/api/shop/[order_name]/``
 
+## DELETE request
+Send a delete request with the order_name to get rid of an order. Make sure you include correct order_name. There's no going back
+
+``curl --header "Content-Type: application/json" --request DELETE -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' --data '{"order_name":"[order_name]"}' http://localhost:8000/api/shop/orders/``
+
 ## Line Items
 
 ### GET request
 To get detailed view of all the items in queue to be processed(bought), we will use this endpoint.  
-/api/shop/listitem/  
+/api/shop/lineitem/  
 
 ``curl --header "Content-Type: application/json" --request GET -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' http://localhost:8000/api/shop/lineitem/``
