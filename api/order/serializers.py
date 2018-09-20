@@ -11,7 +11,7 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ['order_name', 'line_items', 'cart_total']
     def create(self, request):
-        serialized = self.serializer_class(data=request.DATA)
+        serialized = self.serializer_class(data=request.data)
         if serialized.is_valid():
             serialized.save()
             return Response(status=HTTP_202_ACCEPTED)

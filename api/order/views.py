@@ -28,10 +28,8 @@ class OrderList(APIView):
         serializer = OrderSerializer(orderlist,many = True)
         return Response(serializer.data)
     def post(self, request):
-        serializer = OrderSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        super(Order, self).post(request.data)
+        serializer = OrderSerializer(order_name=order_name)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OrderDetail(APIView):
