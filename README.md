@@ -35,9 +35,11 @@ In the interest of time, I have only implemented token based authentication for 
 
 ``curl --header "Content-Type: application/json" --request POST --data '{"username":"nschhina","password":"Test123"}' http://localhost:8000/api/shop/login/``
 
+![Alt text](static/login.png?raw=true "login")
 Make sure you include this token in your JSON POST/GET requests to be authenticated in order to use this API. For example -
 
 ``{"Authorization": "Token 2543g34g2f34g34gjkwvv"}``
+![Alt text](static/token.png?raw=true "login")
 
 
 Another way to get your Auth token is to directly go to `http://localhost:8000/api/shop/login/` and make a post request using Django's panel.
