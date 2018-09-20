@@ -3,26 +3,28 @@
 Store Restful API
 ==============================
 
-This API is a REST-style API designed for the Shopify Dev internship challenge. The "Test-Server" for this is deployed on a GKE cluster which is hosting one api-server pod and one RDBMS(MySQL) pod. The Docker image for the same would uploaded to Docker hub soon.
-
-[Product](#products)
-[OrderListView](#orders-list-view)
-[OrderDetailedView](#orders-detailed-view)
-[LineItem](#line-items)
+This API is a REST-style API designed for the Shopify Dev internship challenge. The "Test-Server" for this is deployed on a GKE cluster which is hosting one api-server pod and one RDBMS(MySQL) pod. The Docker image for the same would uploaded to Docker hub soon. All the CRUD functionalities have not been implemented yet due to the lack of time. Would be adding more CRUD features soon.
 
 # Table of Contents
 - [Setup](#setup)
 - [Model](#model)
     - [Endpoints](#endpoints)
 - [Authentication](#authentication)
-- [AdminPanel](#adminpanel)
+- [AdminPanel](#admin-panel)
 - [API](#api)
     - [Product](#products)
+        - [GET](#get-request-product)
+        - [POST](#post-request-product)
+        - [PUT](#put-request-product)
+        - [DELETE](#delete-request-product)
     - [OrderListView](#orders-list-view)
-    - [OrderDetailedView](#orders-detailed-view)
+        - [GET](#get-request-order-list-view)
+        - [POST](#post-request-order-list-view)
+    - [OrderDetailedView](#order-detailed-view)
+        - [GET](#get-request-order-detailed-view)
+        - [DELETE](#delete-request-order-detailed-view)
     - [LineItem](#line-items)
-
-
+        - [GET](#get-request-line-items)
 
 # Setup
 -----
@@ -86,14 +88,14 @@ In curl, a simple request for the product list would look like this:
 
 ## Products
 
-### GET request
+### GET request Product
 For information about Current products in store, we make a get request at   /api/shop/products/
 
 ``curl --header "Content-Type: application/json" --request GET -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' http://localhost:8000/api/shop/products/``
 
 ![Alt text](static/getproducts.png?raw=true "getproducts")
 
-### POST request
+### POST request Product
 
 To insert a new product in our shop, we'll be using Post request at   /api/shop/products/
 
@@ -101,7 +103,7 @@ To insert a new product in our shop, we'll be using Post request at   /api/shop/
 
 ![Alt text](static/postproduct.png?raw=true "postproduct")
 
-### PUT request
+### PUT request Product
 Majorly used to modify the price of current item, this will not create a new object! Make sure you include product_name and product_price in your request
 /api/shop/products/
 
@@ -109,7 +111,7 @@ Majorly used to modify the price of current item, this will not create a new obj
 
 ![Alt text](static/postproduct.png?raw=true "postproduct")
 
-### DELETE request
+### DELETE request Product
 Feel like you don't like product in the shop? JUST DELETE IT! :P Make sure you include product_name in your request  
 /api/shop/products/
 
@@ -120,7 +122,7 @@ Make sure you include both product_name and product_price fields in your POST re
 
 ## Orders List View
 
-### GET request
+### GET request Order List View
 
 For information about current orders in store, we make a get request at, you can here check individual price for line items and your total cart price.   /api/shop/orders/
 
@@ -128,7 +130,7 @@ For information about current orders in store, we make a get request at, you can
 ``
 ![Alt text](static/getorders.png?raw=true "getorders")
 
-### POST requests
+### POST requests Order List View
 To start a new order, we will make a POST request with order_name field in the list view.    
 /api/shop/orders/  
 
@@ -136,7 +138,7 @@ To start a new order, we will make a POST request with order_name field in the l
 
 ## Order Detailed View
 
-### GET request
+### GET request Order Detailed View
 To get detailed view of a particular order you can use this detailed view GET method.    
 /api/shop/orders/[order_name]/  
 NOTE: I did not create slug field or methods, so your Request object must be case sensitive for example "OrderA", "OrderB"..
@@ -145,16 +147,14 @@ NOTE: I did not create slug field or methods, so your Request object must be cas
 
 ![Alt text](static/orderviewlist.png?raw=true "orderviewlist")
 
-## DELETE request
+## DELETE request Order Detailed View
 Send a delete request with the order_name to get rid of an order. Make sure you include correct order_name. There's no going back
 
 ``curl --header "Content-Type: application/json" --request DELETE -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' http://localhost:8000/api/shop/orders/[order_name]``
 
-![Alt text](static/orderviewlist.png?raw=true "orderviewlist")
-
 ## Line Items
 
-### GET request
+### GET request Line Items
 To get detailed view of all the items in queue to be processed(bought), we will use this endpoint.  
 /api/shop/lineitem/  
 
