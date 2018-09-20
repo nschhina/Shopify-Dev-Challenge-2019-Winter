@@ -21,9 +21,10 @@ class OrderSerializer(serializers.ModelSerializer):
     #     list = LineItem.objects.create(**validated_data)
     #     return list
     def update(self, instance, validated_data):
+        #listitems = instance.items.product.get(product_name = validated_data.get("product_name"))
         # items = instance.items.return_set(validated_data.get("product_name"))
 
-        items = instance.objects.items.all().select_related('product').select_related('product_name')
+        # items = instance.objects.items.all().select_related('product').select_related('product_name')
         # items = items.product_name
         # instance.save()
         #a = items.get('product_name'= validated_data.get("product_name")
