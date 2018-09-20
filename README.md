@@ -5,6 +5,12 @@ Store Restful API
 
 This API is a REST-style API designed for the Shopify Dev internship challenge. The "Test-Server" for this is deployed on a GKE cluster which is hosting one api-server pod and one RDBMS(MySQL) pod. The Docker image for the same would uploaded to Docker hub soon.
 
+[Product](#products)
+[OrderListView](#orders-list-view)
+[OrderDetailedView](#orders-detailed-view)
+[LineItem](#line-items)
+
+
 Setup
 -----
 This API is written in Python3.7 using Django2.1.1 and DjangoRestFramework3.8.2.
@@ -51,9 +57,12 @@ Another way to get your Auth token is to directly go to `http://localhost:8000/a
 ## Admin panel
 Django provides an admin panel for access/manipulation of your models. You can easily use the UI panel at /admin/ once you login with your credentials. This is a pretty cool feature and Django does all the work for you. So in case you don't wish to manually make API requests from POSTMAN or using CURL, this would save you a lot of work.
 
-![Alt text](static/admin.png?raw=true "adminlogin")
+![Alt text](static/adminlogin.png?raw=true "adminlogin")
+
 ![Alt text](static/adminlineitem.png?raw=true "adminlineitem")
+
 ![Alt text](static/adminorder.png?raw=true "adminorder")
+
 ![Alt text](static/adminview.png?raw=true "adminview")
 
 Making RESTful API Requests
@@ -84,7 +93,7 @@ Majorly used to modify the price of current item, this will not create a new obj
 
 ``curl --header "Content-Type: application/json" --request PUT -H 'Authorization:Token 028ad8511a505992e3053df18724fa95b55e4' --data '{"product_name": "ProdB","product_price": "58.95"}' http://localhost:8000/api/shop/products/``
 
-[Alt text](static/postproduct.png?raw=true "postproduct")
+![Alt text](static/postproduct.png?raw=true "postproduct")
 
 ### DELETE request
 Feel like you don't like product in the shop? JUST DELETE IT! :P Make sure you include product_name in your request  
@@ -103,7 +112,7 @@ For information about current orders in store, we make a get request at, you can
 
 ``curl --header "Content-Type: application/json" --request GET -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' http://localhost:8000/api/shop/orders/
 ``
-[Alt text](static/getorders.png?raw=true "getorders")
+![Alt text](static/getorders.png?raw=true "getorders")
 
 ### POST requests
 To start a new order, we will make a POST request with order_name field in the list view.    
@@ -120,14 +129,14 @@ NOTE: I did not create slug field or methods, so your Request object must be cas
 
 ``curl --header "Content-Type: application/json" --request GET -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' http://localhost:8000/api/shop/[order_name]/``
 
-[Alt text](static/orderviewlist.png?raw=true "orderviewlist")
+![Alt text](static/orderviewlist.png?raw=true "orderviewlist")
 
 ## DELETE request
 Send a delete request with the order_name to get rid of an order. Make sure you include correct order_name. There's no going back
 
 ``curl --header "Content-Type: application/json" --request DELETE -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' http://localhost:8000/api/shop/orders/[order_name]``
 
-[Alt text](static/orderviewlist.png?raw=true "orderviewlist")
+![Alt text](static/orderviewlist.png?raw=true "orderviewlist")
 
 ## Line Items
 
@@ -137,4 +146,4 @@ To get detailed view of all the items in queue to be processed(bought), we will 
 
 ``curl --header "Content-Type: application/json" --request GET -H 'Authorization:Token 028ad8511a505992e305b0f3df18724fa95b55e4' http://localhost:8000/api/shop/lineitem/``
 
-[Alt text](static/getitem.png?raw=true "getitemlist")
+![Alt text](static/getitem.png?raw=true "getitemlist")
