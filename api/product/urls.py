@@ -7,5 +7,5 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('', ProductList.as_view(), name= "productview"),
-    url(r'^(?P<product_name>[\w]+)/$', ProductDetail.as_view(), name='entry_delete'),
+    url(r'^(?P<product_name>[\w]+)/$', ProductDetail.as_view(), name='prodview'),
 ]
