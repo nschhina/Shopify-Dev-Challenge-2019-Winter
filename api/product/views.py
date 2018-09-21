@@ -30,7 +30,7 @@ class ProductList(APIView):
     def put(self, request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        order_name = body['order_name']
+        order_name = body['product_name']
         snippet = self.get_object(order_name)
         serializer = ProductSerializer(snippet, data=request.data, partial = True)
         if serializer.is_valid():
@@ -42,7 +42,7 @@ class ProductList(APIView):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         product_name = body['product_name']
-        snippet = self.get_object(order_name)
+        snippet = self.get_object(product_name)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
