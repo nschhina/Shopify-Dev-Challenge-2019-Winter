@@ -1,19 +1,21 @@
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: mysql
-  namespace: shopifyapp
+  namespace: default
   labels:
-    purpose: mysqlforshop
+    purpose: mysql
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: mysqlserver
+        app: mysql
     spec:
       containers:
       - name: mysql
+        args: ["--default-authentication-plugin=mysql_native_password"]
         image: docker.io/mysql:latest
         ports:
         - containerPort: 3306
